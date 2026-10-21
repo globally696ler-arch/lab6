@@ -1,31 +1,33 @@
-#include <climits>
-#include <iostream>
-#include <vector>
-using namespace std;
+#include <algorithm> // для sort() — сортировки
+#include <iostream>  // для cin / cout — ввода и вывода
+#include <vector>    // для vector — списка (динамического массива)
+using namespace std; // чтобы не писать std:: перед cin, cout, vector
 
 int main() {
   int n;
-  cout << "Сколько чисел: ";
+  cout << "Сколько чисел? ";
   cin >> n;
 
-  vector<int> a(n);
-  cout << "Введите числа: ";
-  for (int &x : a)
-    cin >> x;
+  // Создаём список размера n и заполняем его
+  vector<int> data(n); // список из n целых чисел
+  cout << "Введите " << n << " чисел: ";
+  for (int i = 0; i < n; i++)
+    cin >> data[i]; // читаем число и кладём в i-ю ячейку
 
-  int first = INT_MIN, second = INT_MIN;
-  for (int x : a) {
-    if (x > first) {
-      second = first;
-      first = x;
-    } else if (x > second && x != first)
-      second = x;
+  // Сортируем по возрастанию
+  sort(data.begin(), data.end());
+
+  // Ищем середину
+  int mid = n / 2; // индекс центрального элемента
+
+  // Считаем медиану
+  if (n % 2 == 1) {
+    // Нечётное количество - берём центральный элемент
+    cout << "Медиана: " << data[mid];
+  } else {
+    // Чётное количество - среднее двух центральных
+    cout << "Медиана: " << (data[mid - 1] + data[mid]) / 2.0;
   }
-
-  if (second == INT_MIN)
-    cout << "Нет второго по величине\n";
-  else
-    cout << "Второй по величине: " << second << '\n';
 
   return 0;
 }
