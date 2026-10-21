@@ -21,8 +21,8 @@ int main()
 
   // Разбиваем строку на отдельные числа
   stringstream ss(line);
-  vector<int> data;
-  int num;
+  vector<double> data;
+  double num;
   while (ss >> num)
   {
     data.push_back(num);
