@@ -1,32 +1,59 @@
-#include <algorithm> // для sort() — сортировки
-#include <iostream>  // для cin / cout — ввода и вывода
-#include <vector>    // для vector — списка (динамического массива)
-using namespace std; // чтобы не писать std:: перед cin, cout, vector
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream> // нужен для разбора строки
 
-int main() {
+using namespace std;
+
+int main()
+{
   int n;
   cout << "Сколько чисел? ";
   cin >> n;
 
-  // Создаём список размера n и заполняем его
-  vector<int> data(n); // список из n целых чисел
+  // Очищаем буфер после ввода числа n (убираем нажатие Enter)
+  cin.ignore();
+
   cout << "Введите " << n << " чисел: ";
-  for (int i = 0; i < n; i++)
-    cin >> data[i]; // читаем число и кладём в i-ю ячейку
+  string line;
+  getline(cin, line); // Считываем всю строку целиком
+
+  // Разбиваем строку на отдельные числа
+  stringstream ss(line);
+  vector<int> data;
+  int num;
+  while (ss >> num)
+  {
+    data.push_back(num);
+  }
+
+  // Проверка количества
+  if (data.size() < n)
+  {
+    cout << "Ошибка: вы ввели меньше чисел, чем нужно (нужно " << n << ", введено " << data.size() << ").\n";
+    return 0;
+  }
+  else if (data.size() > n)
+  {
+    cout << "Ошибка: вы ввели больше чисел, чем нужно (нужно " << n << ", введено " << data.size() << ").\n";
+    return 0;
+  }
 
   // Сортируем по возрастанию
   sort(data.begin(), data.end());
 
   // Ищем середину
-  int mid = n / 2; // индекс центрального элемента
+  int mid = n / 2;
 
   // Считаем медиану
-  if (n % 2 == 1) {
-    // Нечётное количество - берём центральный элемент
-    cout << "Медиана: " << data[mid];
-  } else {
-    // Чётное количество - среднее двух центральных
-    cout << "Медиана: " << (data[mid - 1] + data[mid]) / 2.0;
+  if (n % 2 == 1)
+  {
+    cout << "Медиана: " << data[mid] << "\n";
+  }
+  else
+  {
+    cout << "Медиана: " << (data[mid - 1] + data[mid]) / 2.0 << "\n";
   }
 
   return 0;
