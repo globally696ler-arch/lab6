@@ -1,16 +1,14 @@
-# 1. Просим пользователя ввести первый список
-# input() получает строку, split() разбивает её по пробелам,
-# map(int, ...) превращает каждый кусочек в число, list() собирает всё в список.
-list1 = list(map(int, input("Введите числа первого списка через пробел: ").split()))
+def median(nums):
+    nums = sorted(nums)  # сортируем список
+    n = len(nums)
+    mid = n // 2  # индекс середины
 
-# 2. Просим ввести второй список
-list2 = list(map(int, input("Введите числа второго списка через пробел: ").split()))
+    if n % 2 == 1:  # нечётное количество
+        return nums[mid]
+    else:  # чётное количество
+        return (nums[mid - 1] + nums[mid]) / 2
 
-# 3. Делаем объединение и пересечение
-union = list(set(list1) | set(list2))
-intersection = list(set(list1) & set(list2))
 
-# 4. Выводим результат
-print("\nРезультат:")
-print("Объединение:", union)
-print("Пересечение:", intersection)
+# Пример использования
+data = list(map(int, input().split()))
+print("Медиана:", median(data))
