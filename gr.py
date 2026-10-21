@@ -1,18 +1,16 @@
-def second(arr):
-    if len(arr) < 2:
-        return None
+# 1. Просим пользователя ввести первый список
+# input() получает строку, split() разбивает её по пробелам,
+# map(int, ...) превращает каждый кусочек в число, list() собирает всё в список.
+list1 = list(map(int, input("Введите числа первого списка через пробел: ").split()))
 
-    first = second = float("-inf")
+# 2. Просим ввести второй список
+list2 = list(map(int, input("Введите числа второго списка через пробел: ").split()))
 
-    for x in arr:
-        if x > first:
-            second = first
-            first = x
-        elif first > x > second:  # строгое ">" отсекает дубликаты максимума
-            second = x
+# 3. Делаем объединение и пересечение
+union = list(set(list1) | set(list2))
+intersection = list(set(list1) & set(list2))
 
-    return None if second == float("-inf") else second
-
-
-num = list(map(int, input().split()))
-print(second(num))
+# 4. Выводим результат
+print("\nРезультат:")
+print("Объединение:", union)
+print("Пересечение:", intersection)
